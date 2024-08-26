@@ -2,6 +2,7 @@
 name = "float_plus"
 version = "1.0.0"
 edition = "2021"
+description = "Additional features for float values"
 
 [dependencies]
 anyhow = "1.0.86"
