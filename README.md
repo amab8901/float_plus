@@ -1,6 +1,8 @@
 # FLoat Plus
 
 ## `aeq(..)` method
+
+`aeq` means "approximately equal".
 ``` rust
     use float_plus::aeq;
 
