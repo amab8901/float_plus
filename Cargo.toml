@@ -1,6 +1,6 @@
 [package]
 name = "float_plus"
-version = "1.4.2"
+version = "1.5.0"
 edition = "2021"
 description = "Additional features for float values"
 license = "MIT OR Apache-2.0"
