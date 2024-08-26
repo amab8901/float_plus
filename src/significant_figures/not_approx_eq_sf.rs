@@ -31,9 +31,6 @@ impl NApproxEqSf for Option<f64> {
                 return true;
             };
 
-            dbg!(&first);
-            dbg!(&second);
-
             let first = first.round_to_sf(significant_digits);
             let second = second.round_to_sf(significant_digits);
             let nae_sf = first != second;

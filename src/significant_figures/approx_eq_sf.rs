@@ -13,8 +13,6 @@ impl ApproxEqSf for f64 {
 
         let aeq_sf = first == second;
 
-        dbg!(aeq_sf);
-
         aeq_sf
     }
 }
@@ -32,9 +30,6 @@ impl ApproxEqSf for Option<f64> {
             let Some(second) = other else {
                 return false;
             };
-
-            dbg!(&first);
-            dbg!(&second);
 
             let first = first.round_to_sf(significant_digits);
             let second = second.round_to_sf(significant_digits);
