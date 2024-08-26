@@ -1,17 +1,16 @@
-use num_traits::Float;
+use num_traits::{abs, Float, Signed};
 
-use crate::RoundToFraction;
+pub fn aeq<F: Float + std::fmt::Debug + Signed>(a: F, b: F, digits: u8) -> bool {
+    let diff = abs(a - b);
 
-pub fn aeq<F: Float + std::fmt::Debug>(a: F, b: F, digits: u32) -> bool {
-    let diff = a - b;
+    let ten = unsafe { F::from(10).unwrap_unchecked() };
+    let digits = unsafe { F::from(digits).unwrap_unchecked() };
 
-    dbg!(&diff);
+    let max_diff = ten.powf(-digits);
 
-    let a = a.round_to_fraction(digits);
-    let b = b.round_to_fraction(digits);
-    let equal = a == b;
+    let approximately_equal = diff < max_diff;
 
-    equal
+    approximately_equal
 }
 
 #[cfg(test)]
@@ -23,7 +22,7 @@ mod tests {
         let a = 100.123_456_789;
         let b = 100.123_456_712;
 
-        assert!(aeq(a, b, 6));
-        assert!(!aeq(a, b, 7));
+        assert!(aeq(a, b, 7));
+        assert!(!aeq(a, b, 8));
     }
 }
