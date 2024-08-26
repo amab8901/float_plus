@@ -6,12 +6,12 @@ use num_traits::{Float, Zero};
 pub trait RoundToSigDig {
     /// Round `float_number` to specified number of significant figures.
     #[allow(clippy::return_self_not_must_use)]
-    fn round_to_sf(&self, significant_digits: i32) -> Self;
+    fn round_to_sf(&self, significant_digits: u8) -> Self;
 }
 
 impl RoundToSigDig for f64 {
     /// Round `float_number` to specified number of significant figures.
-    fn round_to_sf(&self, significant_digits: i32) -> Self
+    fn round_to_sf(&self, significant_digits: u8) -> Self
     where
         Self: Float + Debug,
     {
@@ -31,7 +31,7 @@ impl RoundToSigDig for f64 {
 
 impl RoundToSigDig for f32 {
     /// Round `float_number` to specified number of significant figures.
-    fn round_to_sf(&self, significant_digits: i32) -> Self
+    fn round_to_sf(&self, significant_digits: u8) -> Self
     where
         Self: Float + Debug,
     {
