@@ -1,9 +1,8 @@
 #![cfg_attr(feature = "no_std", no_std)]
 
-pub mod approx_eq;
-pub mod not_approx_eq;
-pub mod round_float;
+pub mod decimals;
+pub mod significant_figures;
 
-pub use approx_eq::ApproxEq;
-pub use not_approx_eq::NApproxEq;
-pub use round_float::RoundToFraction;
+pub use decimals::approx_eq_dec::ApproxEq;
+pub use decimals::not_approx_eq_dec::NApproxEq;
+pub use decimals::round_float_dec::RoundToFraction;
