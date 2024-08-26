@@ -1,5 +1,3 @@
-#![allow(clippy::let_and_return)]
-
 use core::fmt::Debug;
 
 use num_traits::Float;
