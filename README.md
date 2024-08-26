@@ -4,13 +4,13 @@
 
 `aeq` means "approximately equal".
 ``` rust
-    use float_plus::aeq;
+    use float_plus::approx_eq::ApproxEq;
 
-    let a = 100.123_456_789;
-    let b = 100.123_456_712;
+    let a = 100.123_456_789_f64;
+    let b = 100.123_456_712_f64;
 
-    assert!(aeq(a, b, 6));
-    assert!(!aeq(a, b, 7));
+    assert!(a.aeq(b, 7));
+    assert!(!a.aeq(b, 8));
 ```
 
 
