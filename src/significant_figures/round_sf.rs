@@ -5,21 +5,21 @@ use cast::f64;
 use num_traits::{Float, Zero};
 pub trait RoundToSigDig {
     /// Round `float_number` to specified number of significant figures.
-    fn round_to_sf(&self, significant_digits: u8) -> Self;
+    fn round_to_sf(&self, significant_figures: u8) -> Self;
 }
 
 impl RoundToSigDig for f64 {
     /// Round `float_number` to specified number of significant figures.
-    fn round_to_sf(&self, significant_digits: u8) -> Self
+    fn round_to_sf(&self, significant_figures: u8) -> Self
     where
         Self: Float + Debug,
     {
-        if self.is_zero() || significant_digits.is_zero() {
+        if self.is_zero() || significant_figures.is_zero() {
             return 0.0;
         }
 
         let whole_digits = f64(self.round().to_string().len());
-        let digit_shift = f64(significant_digits) - whole_digits;
+        let digit_shift = f64(significant_figures) - whole_digits;
         let shifted_num = self * 10.0.powf(digit_shift);
         let shifted_rounded = shifted_num.round();
         let rounded = shifted_rounded / 10.0.powf(digit_shift);
@@ -30,16 +30,16 @@ impl RoundToSigDig for f64 {
 
 impl RoundToSigDig for f32 {
     /// Round `float_number` to specified number of significant figures.
-    fn round_to_sf(&self, significant_digits: u8) -> Self
+    fn round_to_sf(&self, significant_figures: u8) -> Self
     where
         Self: Float + Debug,
     {
-        if self.is_zero() || significant_digits.is_zero() {
+        if self.is_zero() || significant_figures.is_zero() {
             return 0.0;
         }
 
         let whole_digits = f32(self.round().to_string().len());
-        let digit_shift = f32(significant_digits) - whole_digits;
+        let digit_shift = f32(significant_figures) - whole_digits;
         let shifted_num = self * 10.0.powf(digit_shift);
         let shifted_rounded = shifted_num.round();
         let rounded = shifted_rounded / 10.0.powf(digit_shift);

@@ -3,13 +3,13 @@
 use super::round_sf::RoundToSigDig;
 
 pub trait NApproxEqSf {
-    fn nae_sf(&self, other: Self, significant_digits: u8) -> bool;
+    fn nae_sf(&self, other: Self, significant_figures: u8) -> bool;
 }
 
 impl NApproxEqSf for f64 {
-    fn nae_sf(&self, other: Self, significant_digits: u8) -> bool {
-        let first = self.round_to_sf(significant_digits);
-        let second = other.round_to_sf(significant_digits);
+    fn nae_sf(&self, other: Self, significant_figures: u8) -> bool {
+        let first = self.round_to_sf(significant_figures);
+        let second = other.round_to_sf(significant_figures);
 
         let nae_sf = first != second;
 
@@ -18,7 +18,7 @@ impl NApproxEqSf for f64 {
 }
 
 impl NApproxEqSf for Option<f64> {
-    fn nae_sf(&self, other: Self, significant_digits: u8) -> bool {
+    fn nae_sf(&self, other: Self, significant_figures: u8) -> bool {
         if self.is_none() && other.is_none() {
             return false;
         }
@@ -31,8 +31,8 @@ impl NApproxEqSf for Option<f64> {
                 return true;
             };
 
-            let first = first.round_to_sf(significant_digits);
-            let second = second.round_to_sf(significant_digits);
+            let first = first.round_to_sf(significant_figures);
+            let second = second.round_to_sf(significant_figures);
             let nae_sf = first != second;
 
             return nae_sf;
@@ -43,7 +43,7 @@ impl NApproxEqSf for Option<f64> {
 }
 
 impl<E> NApproxEqSf for Result<f64, E> {
-    fn nae_sf(&self, other: Self, significant_digits: u8) -> bool {
+    fn nae_sf(&self, other: Self, significant_figures: u8) -> bool {
         if self.is_err() && other.is_err() {
             return false;
         }
@@ -56,8 +56,8 @@ impl<E> NApproxEqSf for Result<f64, E> {
                 return true;
             };
 
-            let first = first.round_to_sf(significant_digits);
-            let second = second.round_to_sf(significant_digits);
+            let first = first.round_to_sf(significant_figures);
+            let second = second.round_to_sf(significant_figures);
             let nae_sf = first != second;
 
             return nae_sf;
@@ -68,9 +68,9 @@ impl<E> NApproxEqSf for Result<f64, E> {
 }
 
 impl NApproxEqSf for f32 {
-    fn nae_sf(&self, other: Self, significant_digits: u8) -> bool {
-        let first = self.round_to_sf(significant_digits);
-        let second = other.round_to_sf(significant_digits);
+    fn nae_sf(&self, other: Self, significant_figures: u8) -> bool {
+        let first = self.round_to_sf(significant_figures);
+        let second = other.round_to_sf(significant_figures);
 
         let aeq = first != second;
 
@@ -79,7 +79,7 @@ impl NApproxEqSf for f32 {
 }
 
 impl NApproxEqSf for Option<f32> {
-    fn nae_sf(&self, other: Self, significant_digits: u8) -> bool {
+    fn nae_sf(&self, other: Self, significant_figures: u8) -> bool {
         if self.is_none() && other.is_none() {
             return false;
         }
@@ -92,8 +92,8 @@ impl NApproxEqSf for Option<f32> {
                 return true;
             };
 
-            let first = first.round_to_sf(significant_digits);
-            let second = second.round_to_sf(significant_digits);
+            let first = first.round_to_sf(significant_figures);
+            let second = second.round_to_sf(significant_figures);
             let nae_sf = first != second;
 
             return nae_sf;
@@ -104,7 +104,7 @@ impl NApproxEqSf for Option<f32> {
 }
 
 impl<E> NApproxEqSf for Result<f32, E> {
-    fn nae_sf(&self, other: Self, significant_digits: u8) -> bool {
+    fn nae_sf(&self, other: Self, significant_figures: u8) -> bool {
         if self.is_err() && other.is_err() {
             return false;
         }
@@ -117,8 +117,8 @@ impl<E> NApproxEqSf for Result<f32, E> {
                 return true;
             };
 
-            let first = first.round_to_sf(significant_digits);
-            let second = second.round_to_sf(significant_digits);
+            let first = first.round_to_sf(significant_figures);
+            let second = second.round_to_sf(significant_figures);
             let nae_sf = first != second;
 
             return nae_sf;

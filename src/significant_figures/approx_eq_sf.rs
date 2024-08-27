@@ -3,13 +3,13 @@
 use super::round_sf::RoundToSigDig;
 
 pub trait ApproxEqSf {
-    fn aeq_sf(&self, other: Self, significant_digits: u8) -> bool;
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool;
 }
 
 impl ApproxEqSf for f64 {
-    fn aeq_sf(&self, other: Self, significant_digits: u8) -> bool {
-        let first = self.round_to_sf(significant_digits);
-        let second = other.round_to_sf(significant_digits);
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
+        let first = self.round_to_sf(significant_figures);
+        let second = other.round_to_sf(significant_figures);
 
         let aeq_sf = first == second;
 
@@ -18,7 +18,7 @@ impl ApproxEqSf for f64 {
 }
 
 impl ApproxEqSf for Option<f64> {
-    fn aeq_sf(&self, other: Self, significant_digits: u8) -> bool {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
         if self.is_none() && other.is_none() {
             return true;
         }
@@ -31,8 +31,8 @@ impl ApproxEqSf for Option<f64> {
                 return false;
             };
 
-            let first = first.round_to_sf(significant_digits);
-            let second = second.round_to_sf(significant_digits);
+            let first = first.round_to_sf(significant_figures);
+            let second = second.round_to_sf(significant_figures);
             let aeq_sf = first == second;
 
             return aeq_sf;
@@ -43,7 +43,7 @@ impl ApproxEqSf for Option<f64> {
 }
 
 impl<E> ApproxEqSf for Result<f64, E> {
-    fn aeq_sf(&self, other: Self, significant_digits: u8) -> bool {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
         if self.is_err() && other.is_err() {
             return true;
         }
@@ -56,8 +56,8 @@ impl<E> ApproxEqSf for Result<f64, E> {
                 return false;
             };
 
-            let first = first.round_to_sf(significant_digits);
-            let second = second.round_to_sf(significant_digits);
+            let first = first.round_to_sf(significant_figures);
+            let second = second.round_to_sf(significant_figures);
             let aeq_sf = first == second;
 
             return aeq_sf;
@@ -68,9 +68,9 @@ impl<E> ApproxEqSf for Result<f64, E> {
 }
 
 impl ApproxEqSf for f32 {
-    fn aeq_sf(&self, other: Self, significant_digits: u8) -> bool {
-        let first = self.round_to_sf(significant_digits);
-        let second = other.round_to_sf(significant_digits);
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
+        let first = self.round_to_sf(significant_figures);
+        let second = other.round_to_sf(significant_figures);
 
         let aeq = first == second;
 
@@ -79,7 +79,7 @@ impl ApproxEqSf for f32 {
 }
 
 impl ApproxEqSf for Option<f32> {
-    fn aeq_sf(&self, other: Self, significant_digits: u8) -> bool {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
         if self.is_none() && other.is_none() {
             return true;
         }
@@ -92,8 +92,8 @@ impl ApproxEqSf for Option<f32> {
                 return false;
             };
 
-            let first = first.round_to_sf(significant_digits);
-            let second = second.round_to_sf(significant_digits);
+            let first = first.round_to_sf(significant_figures);
+            let second = second.round_to_sf(significant_figures);
             let aeq_sf = first == second;
 
             return aeq_sf;
@@ -104,7 +104,7 @@ impl ApproxEqSf for Option<f32> {
 }
 
 impl<E> ApproxEqSf for Result<f32, E> {
-    fn aeq_sf(&self, other: Self, significant_digits: u8) -> bool {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
         if self.is_err() && other.is_err() {
             return true;
         }
@@ -117,8 +117,8 @@ impl<E> ApproxEqSf for Result<f32, E> {
                 return false;
             };
 
-            let first = first.round_to_sf(significant_digits);
-            let second = second.round_to_sf(significant_digits);
+            let first = first.round_to_sf(significant_figures);
+            let second = second.round_to_sf(significant_figures);
             let aeq_sf = first == second;
 
             return aeq_sf;
