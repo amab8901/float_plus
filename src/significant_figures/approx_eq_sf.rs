@@ -1,5 +1,8 @@
 #![allow(clippy::float_cmp)]
 
+#[cfg(feature = "num")]
+use num::complex::{Complex32, Complex64};
+
 use super::round_sf::RoundToSigDig;
 
 pub trait ApproxEqSf {
@@ -36,6 +39,59 @@ impl ApproxEqSf for Option<f64> {
             let aeq_sf = first == second;
 
             return aeq_sf;
+        }
+
+        false
+    }
+}
+
+#[cfg(feature = "num")]
+impl ApproxEqSf for Complex64 {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
+        let real_aeq_sf = self.re.aeq_sf(other.re, significant_figures);
+        let imaginary_aeq_sf = self.im.aeq_sf(other.im, significant_figures);
+        let aeq_sf = real_aeq_sf && imaginary_aeq_sf;
+
+        aeq_sf
+    }
+}
+
+#[cfg(feature = "num")]
+impl ApproxEqSf for Option<Complex64> {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
+        if self.is_some() && other.is_some() {
+            let first = self.unwrap();
+            let second = other.unwrap();
+            let real_aeq_sf = first.re.aeq_sf(second.re, significant_figures);
+            let imaginary_aeq_sf = first.im.aeq_sf(second.im, significant_figures);
+            let aeq_sf = real_aeq_sf && imaginary_aeq_sf;
+
+            return aeq_sf;
+        }
+
+        if self.is_none() && other.is_none() {
+            return true;
+        }
+
+        false
+    }
+}
+
+#[cfg(feature = "num")]
+impl<E> ApproxEqSf for Result<Complex64, E> {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
+        if self.is_ok() && other.is_ok() {
+            let first = unsafe { self.as_ref().unwrap_unchecked() };
+            let second = unsafe { other.as_ref().unwrap_unchecked() };
+            let real_aeq_sf = first.re.aeq_sf(second.re, significant_figures);
+            let imaginary_aeq_sf = first.im.aeq_sf(second.im, significant_figures);
+            let aeq_sf = real_aeq_sf && imaginary_aeq_sf;
+
+            return aeq_sf;
+        }
+
+        if self.is_err() && other.is_err() {
+            return true;
         }
 
         false
@@ -122,6 +178,59 @@ impl<E> ApproxEqSf for Result<f32, E> {
             let aeq_sf = first == second;
 
             return aeq_sf;
+        }
+
+        false
+    }
+}
+
+#[cfg(feature = "num")]
+impl ApproxEqSf for Complex32 {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
+        let real_aeq_sf = self.re.aeq_sf(other.re, significant_figures);
+        let imaginary_aeq_sf = self.im.aeq_sf(other.im, significant_figures);
+        let aeq_sf = real_aeq_sf && imaginary_aeq_sf;
+
+        aeq_sf
+    }
+}
+
+#[cfg(feature = "num")]
+impl ApproxEqSf for Option<Complex32> {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
+        if self.is_some() && other.is_some() {
+            let first = self.unwrap();
+            let second = other.unwrap();
+            let real_aeq_sf = first.re.aeq_sf(second.re, significant_figures);
+            let imaginary_aeq_sf = first.im.aeq_sf(second.im, significant_figures);
+            let aeq_sf = real_aeq_sf && imaginary_aeq_sf;
+
+            return aeq_sf;
+        }
+
+        if self.is_none() && other.is_none() {
+            return true;
+        }
+
+        false
+    }
+}
+
+#[cfg(feature = "num")]
+impl<E> ApproxEqSf for Result<Complex32, E> {
+    fn aeq_sf(&self, other: Self, significant_figures: u8) -> bool {
+        if self.is_ok() && other.is_ok() {
+            let first = unsafe { self.as_ref().unwrap_unchecked() };
+            let second = unsafe { other.as_ref().unwrap_unchecked() };
+            let real_aeq_sf = first.re.aeq_sf(second.re, significant_figures);
+            let imaginary_aeq_sf = first.im.aeq_sf(second.im, significant_figures);
+            let aeq_sf = real_aeq_sf && imaginary_aeq_sf;
+
+            return aeq_sf;
+        }
+
+        if self.is_err() && other.is_err() {
+            return true;
         }
 
         false
