@@ -5,7 +5,6 @@ use cast::f64;
 use num_traits::{Float, Zero};
 pub trait RoundToSigDig {
     /// Round `float_number` to specified number of significant figures.
-    #[allow(clippy::return_self_not_must_use)]
     fn round_to_sf(&self, significant_digits: u8) -> Self;
 }
 

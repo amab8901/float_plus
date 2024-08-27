@@ -3,7 +3,6 @@ use core::fmt::Debug;
 use num_traits::Float;
 pub trait RoundToFraction {
     /// Round `float_number` to specified number of digits in the fraction.
-    #[allow(clippy::return_self_not_must_use)]
     fn round_to_fraction(&self, digits: u32) -> Self
     where
         Self: Float + Debug,

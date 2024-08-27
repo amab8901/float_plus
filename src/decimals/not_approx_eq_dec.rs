@@ -3,7 +3,7 @@ use cast::f64;
 use num_traits::abs;
 
 pub trait NApproxEq {
-    fn nae(&self, b: Self, decimals: u8) -> bool;
+    fn nae(&self, other: Self, decimals: u8) -> bool;
 }
 
 impl NApproxEq for f64 {

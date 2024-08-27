@@ -3,7 +3,7 @@
 use super::round_sf::RoundToSigDig;
 
 pub trait NApproxEqSf {
-    fn nae_sf(&self, b: Self, significant_digits: u8) -> bool;
+    fn nae_sf(&self, other: Self, significant_digits: u8) -> bool;
 }
 
 impl NApproxEqSf for f64 {
@@ -187,7 +187,6 @@ mod tests {
     fn nae_sf_f32() {
         let a = 100.456_7_f32;
         let b = 100.457;
-
         assert!(!a.nae_sf(b, 6));
 
         let a = 100.456_4_f32;

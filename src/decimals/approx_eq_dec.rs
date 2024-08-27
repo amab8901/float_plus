@@ -3,7 +3,7 @@ use cast::f64;
 use num_traits::abs;
 
 pub trait ApproxEq {
-    fn aeq(&self, b: Self, decimals: u8) -> bool;
+    fn aeq(&self, other: Self, decimals: u8) -> bool;
 }
 
 impl ApproxEq for f64 {

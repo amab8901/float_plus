@@ -1,6 +1,6 @@
 [package]
 name = "float_plus"
-version = "1.5.1"
+version = "1.5.2"
 edition = "2021"
 description = "Additional features for float values"
 license = "MIT OR Apache-2.0"
@@ -21,6 +21,7 @@ std_instead_of_core = "allow"
 non_exhaustive_structs = "allow"
 mod_module_files = "allow"
 self_named_module_files = "allow"
+return_self_not_must_use = "allow"
 
 pedantic = {level = "warn", priority = -1}
 

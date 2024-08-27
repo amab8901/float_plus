@@ -3,7 +3,7 @@
 use super::round_sf::RoundToSigDig;
 
 pub trait ApproxEqSf {
-    fn aeq_sf(&self, b: Self, significant_digits: u8) -> bool;
+    fn aeq_sf(&self, other: Self, significant_digits: u8) -> bool;
 }
 
 impl ApproxEqSf for f64 {
