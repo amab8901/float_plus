@@ -7,6 +7,10 @@ pub trait RoundToFraction {
     where
         Self: Float + Debug,
     {
+        if &self.round() == self {
+            return *self;
+        }
+
         let rounded_float = if digits == 0 {
             let rounded_float = self.trunc();
             rounded_float
@@ -26,6 +30,10 @@ pub trait RoundToFraction {
     where
         Self: Float + Debug,
     {
+        if &self.round() == self {
+            return *self;
+        }
+
         let rounded_float = if digits == 0 {
             let rounded_float = self.trunc();
             rounded_float
@@ -76,6 +84,14 @@ mod tests {
 
     #[test]
     #[allow(clippy::float_cmp)]
+    fn halfway_up_dont_round_whole_number() {
+        let before = 3_465_572_798_000_935_000.0_f64;
+        let after: f64 = before.round_to_fraction_halfway_up(8);
+        assert_eq!(after, 3_465_572_798_000_935_000.0_f64);
+    }
+
+    #[test]
+    #[allow(clippy::float_cmp)]
     fn halfway_down_in_halfway_case() {
         let before = 100.412_215_f64;
         let after = before.round_to_fraction_halfway_down(5);
@@ -96,5 +112,13 @@ mod tests {
         let before = 100.996_f64;
         let after = before.round_to_fraction_halfway_down(2);
         assert_eq!(after, 101.00);
+    }
+
+    #[test]
+    #[allow(clippy::float_cmp)]
+    fn halfway_down_dont_round_whole_number() {
+        let before = 3_465_572_798_000_935_000.0_f64;
+        let after: f64 = before.round_to_fraction_halfway_down(8);
+        assert_eq!(after, 3_465_572_798_000_935_000.0_f64);
     }
 }
